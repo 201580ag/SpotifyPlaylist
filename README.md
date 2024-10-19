@@ -66,7 +66,6 @@ python main.py
 ### 지원
 기여하거나 GitHub 저장소에서 문제를 보고해 주시면 감사하겠습니다. 이메일 [201580ag@gmail.com](mailto:201580ag@gmail.com)으로 연락하실 수도 있습니다.
 
-필요에 따라 더 수정하실 수 있지만, 이 내용이 프로젝트에 대한 기본 정보를 사용자에게 전달하는 데 도움이 될 것입니다!
 # **면책 조항(Disclaimer)**
 ### English
 By using this code, the author bears no responsibility for any issues that may arise. The usage of this code is at the user's discretion, and any consequences resulting from it are solely the responsibility of the user. The author assumes no liability for any outcomes or damages incurred from the use of this code. The user absolves the author of any accountability for losses or damages resulting from the usage of this code. By using this code, the user agrees to the following terms and acknowledges being sufficiently warned of any potential risks associated with its use:
