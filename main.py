@@ -231,8 +231,8 @@ def process_playlist(playlist_url):
         output_dir = os.path.join("output", f"{owner_name} - {playlist_name}")
 
         for track in playlist_data['tracks']:
-            search_query = f"{track['title']} {', '.join(track['artists'])} -" \
-                           f"mv +가사"
+            # search_query = f"{track['title']} {', '.join(track['artists'])} - \"MV\""
+            search_query = f"{track['title']} {', '.join(track['artists'])}"
             mp3_file_path = download_first_video(search_query, output_dir, track['title'])
 
             if mp3_file_path:
