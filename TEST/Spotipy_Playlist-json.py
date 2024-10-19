@@ -13,21 +13,21 @@
 #
 # Developed by 201580ag and contributors.
 # See LICENSE.txt for copyright and licensing details (MIT License).
-# 
+#
 # Disclaimer:
 #   This software is provided "as is", without warranty of any kind, express or implied,
-#   including but not limited to the warranties of merchantability, fitness for a 
-#   particular purpose and noninfringement. In no event shall the authors or copyright 
-#   holders be liable for any claim, damages or other liability, whether in an action 
-#   of contract, tort or otherwise, arising from, out of or in connection with the 
+#   including but not limited to the warranties of merchantability, fitness for a
+#   particular purpose and noninfringement. In no event shall the authors or copyright
+#   holders be liable for any claim, damages or other liability, whether in an action
+#   of contract, tort or otherwise, arising from, out of or in connection with the
 #   software or the use or other dealings in the software.
-#   
-#   By using this software, you acknowledge that you are solely responsible for any 
-#   risks or issues that may arise, including but not limited to data loss, copyright 
-#   infringement, or any other legal matters. The author assumes no responsibility for 
+#
+#   By using this software, you acknowledge that you are solely responsible for any
+#   risks or issues that may arise, including but not limited to data loss, copyright
+#   infringement, or any other legal matters. The author assumes no responsibility for
 #   any misuse or consequences from using this software.
 #
-# This software is free and open-source. Support the project through contributions 
+# This software is free and open-source. Support the project through contributions
 # or by reporting issues on GitHub. Contact: 201580ag@gmail.com
 
 import spotipy
