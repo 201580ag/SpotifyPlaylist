@@ -1,35 +1,3 @@
-# Project: Spotify Playlist Downloader
-# Version: 1.0
-# Author: 201580ag
-# Description:
-#   This project downloads playlist information from Spotify using its API,
-#   retrieves the songs from YouTube, converts them to MP3, and adds metadata
-#   and cover images to the MP3 files.
-#
-# Resources:
-# - GitHub Repository: https://github.com/201580ag/SpotifyPlaylist
-# - Documentation: docs/README.md
-# - Issues & Support: https://github.com/201580ag/SpotifyPlaylist/issues
-#
-# Developed by 201580ag and contributors.
-# See LICENSE.txt for copyright and licensing details (MIT License).
-#
-# Disclaimer:
-#   This software is provided "as is", without warranty of any kind, express or implied,
-#   including but not limited to the warranties of merchantability, fitness for a
-#   particular purpose and noninfringement. In no event shall the authors or copyright
-#   holders be liable for any claim, damages or other liability, whether in an action
-#   of contract, tort or otherwise, arising from, out of or in connection with the
-#   software or the use or other dealings in the software.
-#
-#   By using this software, you acknowledge that you are solely responsible for any
-#   risks or issues that may arise, including but not limited to data loss, copyright
-#   infringement, or any other legal matters. The author assumes no responsibility for
-#   any misuse or consequences from using this software.
-#
-# This software is free and open-source. Support the project through contributions
-# or by reporting issues on GitHub. Contact: 201580ag@gmail.com
-
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
@@ -49,8 +17,7 @@ def load_settings():
             settings = json.load(f)
             return settings['client_id'], settings['client_secret']
     except FileNotFoundError:
-        print(f"에러: '{settings_file}' 파일이 없습니다. 이 파일을 생성하고 API 키를 입력하세요.\n 형식은 client_id, client_secret 입니다.")
-        os.system("pause") 
+        log_error("file_not_found_error.txt", f"에러: '{settings_file}' 파일이 없습니다.")
         raise
 
 # 파일명으로 사용할 수 있도록 플레이리스트 이름을 안전하게 처리하는 함수
@@ -75,6 +42,11 @@ def convert_duration(duration_ms):
 client_id, client_secret = load_settings()
 auth_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(auth_manager=auth_manager)
+
+# 에러를 파일에 기록하는 함수
+def log_error(filename, message):
+    with open(filename, 'a', encoding='utf-8') as error_file:
+        error_file.write(f"{message}\n")
 
 # 플레이리스트 정보 가져오기 함수
 def get_playlist_info(playlist_url):
@@ -140,11 +112,9 @@ def get_playlist_info(playlist_url):
         return json_file_path
 
     except ValueError as e:
-        print(e)
-        os.system("pause") 
+        log_error("value_error.txt", str(e))
     except KeyError as e:
-        print(f"에러: '{e}' 키가 없습니다.")
-        os.system("pause") 
+        log_error("key_error.txt", f"에러: '{e}' 키가 없습니다.")
 
 # 유튜브 검색 후 첫 번째 비디오 다운로드 함수
 def download_first_video(search_query, output_dir, track_title):
@@ -165,15 +135,21 @@ def download_first_video(search_query, output_dir, track_title):
             }],
         }
 
-        with YoutubeDL(ydl_opts) as ydl:
-            ydl.download([video_url])
+        try:
+            with YoutubeDL(ydl_opts) as ydl:
+                ydl.download([video_url])
+            
+            print(f"'{track_title}' 다운로드 완료")
+            return os.path.join(output_dir, f"{sanitize_filename(track_title)}.mp3")
         
-        print(f"'{track_title}' 다운로드 완료")
-        return os.path.join(output_dir, f"{sanitize_filename(track_title)}.mp3")
+        except Exception as e:
+            log_error("download_error.txt", f"'{track_title}' 다운로드 실패: {str(e)}")
+            print(f"'{track_title}' 다운로드 실패. 오류가 'download_error.txt'에 기록되었습니다.")
+            return None
 
     else:
-        print("검색 결과가 없습니다.")
-        os.system("pause") 
+        log_error("no_results_error.txt", f"'{track_title}' 검색 결과가 없습니다.")
+        print(f"'{track_title}' 검색 결과가 없습니다. 오류가 'no_results_error.txt'에 기록되었습니다.")
         return None
 
 # MP3 파일에 커버 이미지와 메타데이터 추가 함수
@@ -215,8 +191,8 @@ def add_metadata_to_mp3(mp3_file_path, track_info):
             os.remove(cover_image_path)
 
         except Exception as e:
-            print(f"메타데이터 추가 중 오류 발생: {e}")
-            os.system("pause") 
+            log_error("metadata_error.txt", f"메타데이터 추가 중 오류 발생: {str(e)}")
+            print(f"메타데이터 추가 중 오류 발생: {str(e)}")
 
 # 전체 프로세스를 실행하는 함수
 def process_playlist(playlist_url):
@@ -231,7 +207,6 @@ def process_playlist(playlist_url):
         output_dir = os.path.join("output", f"{owner_name} - {playlist_name}")
 
         for track in playlist_data['tracks']:
-            # search_query = f"{track['title']} {', '.join(track['artists'])} - \"MV\""
             search_query = f"{track['title']} {', '.join(track['artists'])}"
             mp3_file_path = download_first_video(search_query, output_dir, track['title'])
 
