@@ -1,4 +1,75 @@
+```markdown
+# Spotify 플레이리스트 다운로더
 
+## 버전: 1.0
+
+### 저자: 201580ag
+
+### 설명
+이 프로젝트는 Spotify API를 사용하여 플레이리스트 정보를 다운로드하고, YouTube에서 곡을 검색하여 MP3로 변환한 후, MP3 파일에 메타데이터와 커버 이미지를 추가합니다.
+
+### 리소스
+- **GitHub 저장소**: [Spotify 플레이리스트 다운로더](https://github.com/201580ag/SpotifyPlaylist)
+- **문제 및 지원**: [GitHub Issues](https://github.com/201580ag/SpotifyPlaylist/issues)
+
+### 사전 준비사항
+이 프로젝트를 실행하려면, 다음이 필요합니다:
+
+- Python 3.x
+- pip (Python 패키지 설치 관리자)
+
+### 필요한 모듈
+다음 Python 패키지를 설치해야 합니다:
+
+1. `spotipy`: Spotify API와 상호작용하기 위해 사용합니다.
+2. `yt-dlp`: YouTube에서 비디오를 다운로드하기 위해 사용합니다.
+3. `youtube-search-python`: YouTube에서 비디오를 검색하기 위해 사용합니다.
+4. `mutagen`: 오디오 메타데이터 처리를 위해 사용합니다.
+5. `requests`: HTTP 요청을 수행하기 위해 사용합니다.
+
+다음 명령어를 터미널에 입력하여 필요한 패키지를 설치할 수 있습니다:
+
+```bash
+pip install spotipy yt-dlp youtubesearchpython mutagen requests
+```
+
+### API 키 설정
+1. 프로젝트의 루트 디렉토리에 `setting.json` 파일을 생성합니다.
+2. 다음 형식으로 Spotify API 자격 증명을 추가합니다:
+
+```json
+{
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET"
+}
+```
+
+Spotify API 자격 증명은 [Spotify 개발자 대시보드](https://developer.spotify.com/dashboard/applications)에서 애플리케이션을 등록하여 얻을 수 있습니다.
+
+### 사용법
+1. 저장소를 로컬 머신에 클론합니다:
+
+```bash
+git clone https://github.com/201580ag/SpotifyPlaylist.git
+cd SpotifyPlaylist
+```
+
+2. 스크립트를 실행합니다:
+
+```bash
+python main.py
+```
+
+3. 요청 시 다운로드할 Spotify 플레이리스트의 URL을 입력합니다.
+
+### 면책 조항
+이 소프트웨어는 "있는 그대로" 제공되며, 상업성, 특정 목적에 대한 적합성 및 비침해를 포함하되 이에 국한되지 않는 명시적 또는 묵시적 보증 없이 제공됩니다. 저자는 이 소프트웨어의 사용으로 인한 남용이나 결과에 대해 책임지지 않습니다.
+
+### 지원
+기여하거나 GitHub 저장소에서 문제를 보고해 주시면 감사하겠습니다. 이메일 [201580ag@gmail.com](mailto:201580ag@gmail.com)으로 연락하실 수도 있습니다.
+```
+
+필요에 따라 더 수정하실 수 있지만, 이 내용이 프로젝트에 대한 기본 정보를 사용자에게 전달하는 데 도움이 될 것입니다!
 # **면책 조항(Disclaimer)**
 ### English
 By using this code, the author bears no responsibility for any issues that may arise. The usage of this code is at the user's discretion, and any consequences resulting from it are solely the responsibility of the user. The author assumes no liability for any outcomes or damages incurred from the use of this code. The user absolves the author of any accountability for losses or damages resulting from the usage of this code. By using this code, the user agrees to the following terms and acknowledges being sufficiently warned of any potential risks associated with its use:
